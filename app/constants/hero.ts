@@ -1,0 +1,15 @@
+export const heros = [
+  "/levi.jpeg",
+  "/takemichi.jpg",
+  "/kotoha.jpg",
+  "/sanemi.webp",
+  "/isagi.jpg",
+  "/armin.jpeg",
+  "/tanjiro.webp",
+  "/bachira.jpg",
+  "/mikasa.jpg",
+  "/obanai.webp",
+  "/sasha.webp",
+  "/tokito.jpeg",
+  "/mikey.jpg",
+]
