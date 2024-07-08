@@ -1,4 +1,4 @@
-# Welcome to Quiz!
+# Welcome to Quizz!
 
 - 📖 [Remix docs](https://remix.run/docs)
 
