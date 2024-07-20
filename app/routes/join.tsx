@@ -77,7 +77,7 @@ export default function Index() {
   }
 
   return (
-    <div>
+    <div className="py-10">
       <h1 className="text-center text-2xl font-bold mb-5">Join a Quizz</h1>
       <p className="text-center mb-3">
         Enter the Room, pick your hero, give it a name, and you&apos;re ready to
