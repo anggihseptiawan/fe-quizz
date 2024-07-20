@@ -15,4 +15,5 @@ export interface Player {
   hero: string
   player: string
   score: number
+  finish: boolean
 }

@@ -38,7 +38,7 @@ function Hero({
         src={hero}
         className={`h-40 w-full object-cover rounded-lg mb-2 cursor-pointer ${
           isActive
-            ? "transition-[border] duration-300 border-[5px] border-black"
+            ? "transition-[border] duration-300 border-[5px] border-indigo-500"
             : ""
         }`}
         alt={hero}
@@ -85,7 +85,7 @@ export default function Index() {
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center flex-wrap gap-2 mb-6">
             <div className="flex-1">
               <FormField
                 control={form.control}
@@ -94,7 +94,7 @@ export default function Index() {
                   <FormItem>
                     <Input
                       placeholder="Your name"
-                      className="w-64 h-12 px-4 text-lg"
+                      className="w-full sm:w-64 h-12 px-4 text-lg"
                       {...field}
                     />
                     <FormMessage />
@@ -102,7 +102,7 @@ export default function Index() {
                 )}
               />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 mb-2">
               <FormField
                 control={form.control}
                 name="room"
@@ -143,8 +143,8 @@ export default function Index() {
                 )}
               />
             </div>
-            <div className="flex flex-1 justify-end">
-              <Button>Join 🔥</Button>
+            <div className="flex flex-1 sm:justify-end">
+              <Button className="font-semibold px-6">Join</Button>
             </div>
           </div>
         </form>

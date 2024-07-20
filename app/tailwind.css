@@ -66,6 +66,10 @@
   }
 }
 
+body {
+  background-color: #020534;
+}
+
 @layer base {
   * {
     @apply border-border;

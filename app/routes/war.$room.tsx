@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import { LoaderFunctionArgs } from "@remix-run/node"
 import { json, useLoaderData, useNavigate } from "@remix-run/react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "~/components/ui/button"
 import { supabase } from "~/lib/supabase.server"
 import { Questions } from "~/types/quizz"
@@ -32,16 +32,15 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json({ questions: finalData, room: params.room })
 }
 
-const DEFAULT_TIMER = 50
-const BASE_POINT = 100
+const DEFAULT_TIMER = 30
 export default function Index() {
   const { questions, room } = useLoaderData<typeof loader>()
   const [activeQuestion, setActiveQuestion] = useState(0)
   const [isShowCorrectAnswer, setIsShowCorrectAnswer] = useState(false)
   const [timer, setTimer] = useState(DEFAULT_TIMER)
+  const [startTime, setStartTime] = useState(Date.now())
   const navigate = useNavigate()
   const socket = useSocket()
-  const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,25 +66,12 @@ export default function Index() {
     }
   }, [socket])
 
-  useEffect(() => {
-    if (!socket) return
-
-    socket.on("event", (data: string) => {
-      console.log(data)
-    })
-
-    function playAudio() {
-      audioRef.current?.play()
-    }
-
-    window.addEventListener("click", playAudio)
-
-    return () => window.removeEventListener("click", playAudio)
-  }, [socket])
-
   function handleClick(result: boolean) {
     if (!socket) return
-    const point = result ? timer * BASE_POINT : 0
+    const workTime = Date.now() - startTime
+    const maxTime = DEFAULT_TIMER * 1000
+    const point = result ? Math.floor((maxTime - workTime) / 100) : 0
+    setStartTime(Date.now())
     socket.emit("set-score", {
       room: atob(room as string),
       name: localStorage.getItem("name"),
@@ -96,18 +82,24 @@ export default function Index() {
       setActiveQuestion((prev) => {
         const current = prev + 1
         if (current === questions.length) {
+          if (socket) {
+            socket.emit("finish", {
+              room: atob(room as string),
+              name: localStorage.getItem("name"),
+            })
+          }
+          localStorage.removeItem("name")
           navigate("/join", { replace: true })
         }
         return current
       })
       setIsShowCorrectAnswer(false)
       setTimer(DEFAULT_TIMER)
-    }, 1000)
+    }, 600)
   }
 
   return (
     <div className="py-10">
-      <audio ref={audioRef} src="/aot.mp4"></audio>
       <div className="flex justify-between mb-10">
         <p>
           <span className="font-semibold">{activeQuestion + 1}</span> out of{" "}
@@ -135,8 +127,8 @@ export default function Index() {
                       className={`block w-full h-16 text-lg ${
                         isShowCorrectAnswer
                           ? answer.is_correct
-                            ? "hover:bg-blue-600 bg-blue-600 border-2 border-blue-600"
-                            : "hover:bg-red-600 bg-red-600 border-2 border-red-600"
+                            ? "hover:bg-indigo-800 bg-indigo-800 border-2 border-indigo-800"
+                            : "hover:bg-indigo-400 bg-indigo-400 border-2 border-indigo-800"
                           : ""
                       }`}
                       onClick={() => handleClick(answer.is_correct)}

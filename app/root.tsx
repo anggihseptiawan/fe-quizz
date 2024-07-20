@@ -13,6 +13,7 @@ import { Navbar } from "./components/navbar"
 import { SocketProvider } from "./context"
 import { useEffect, useState } from "react"
 import { Socket, io } from "socket.io-client"
+import { CloudOff } from "lucide-react"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -30,6 +31,21 @@ export async function loader() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [isOffLine, setIsOffLine] = useState(false)
+
+  useEffect(() => {
+    function handleOffline(status: boolean) {
+      setIsOffLine(status)
+    }
+
+    window.addEventListener("offline", () => handleOffline(true))
+    window.addEventListener("online", () => handleOffline(false))
+
+    return () => {
+      window.removeEventListener("offline", () => handleOffline(true))
+      window.removeEventListener("online", () => handleOffline(false))
+    }
+  }, [])
   return (
     <html lang="en">
       <head>
@@ -38,7 +54,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="text-white">
+        {isOffLine && (
+          <div className="bg-red-600 text-white py-2 px-6">
+            <div className="flex gap-2">
+              <CloudOff />
+              <p className="font-semibold">
+                Hey, there is a network issue, you are currently offline!
+              </p>
+            </div>
+          </div>
+        )}
         <div className="max-w-6xl mx-auto px-6">
           <Navbar />
           {children}

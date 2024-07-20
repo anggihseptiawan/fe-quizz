@@ -4,6 +4,7 @@ import { useLoaderData, useLocation } from "@remix-run/react"
 import { useEffect, useRef, useState } from "react"
 import { useSocket } from "~/context"
 import { supabase } from "~/lib/supabase.server"
+import Confetti from "react-confetti"
 import type { Player } from "~/types/quizz"
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -15,13 +16,15 @@ export async function loader({ params }: LoaderFunctionArgs) {
     .eq("room_id", room)
 
   if (errorQuestions) return json(null)
-
+  data.sort((a, z) => z.score - a.score)
   return json(data as Player[])
 }
 
 export default function Index() {
   const allPlayers = useLoaderData<typeof loader>()
   const [players, setPlayers] = useState(allPlayers || [])
+  const [isAllPlayerFinished, setIsAllPlayerFinished] = useState(false)
+  const [windowSize, setWindowSize] = useState({ width: 1440, height: 800 })
   const location = useLocation()
   const socket = useSocket()
   const encryptedRoom = location.pathname.split("/")[2]
@@ -48,6 +51,14 @@ export default function Index() {
       }
     })
 
+    socket.on("player-finish", (data: Player[]) => {
+      const isAllFinished = data.every((player) => !!player.finish)
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+      setIsAllPlayerFinished(isAllFinished)
+      setTimeout(() => setIsAllPlayerFinished(false), 10000)
+      setPlayers(data)
+    })
+
     function playAudio() {
       audioRef.current?.play()
     }
@@ -58,35 +69,40 @@ export default function Index() {
   }, [socket])
 
   return (
-    <div className="py-10">
-      <h1 className="font-bold text-center text-2xl mb-6">
-        Live Score Leaderboard
-      </h1>
-      <audio ref={audioRef} src="/aot.mp4"></audio>
-      <section className="sm:w-2/3 mx-auto">
-        {players?.map((player) => (
-          <div
-            key={player.id}
-            className="flex justify-between mb-5"
-            // style={{
-            //   backgroundImage: `url(${player.hero})`,
-            //   backgroundPosition: "center",
-            // }}
-          >
-            <div className="flex items-center gap-4">
-              <p className="text-2xl font-bold w-32 -mt-4">
+    <>
+      {isAllPlayerFinished && (
+        <Confetti width={windowSize.width} height={windowSize.height} />
+      )}
+
+      <div className="py-10">
+        <h1 className="font-bold text-center text-2xl mb-6">
+          Live Score Leaderboard
+        </h1>
+        <audio ref={audioRef} src="/aot.mp4"></audio>
+        <section className="md:w-1/2 mx-auto pr-8 sm:pr-0">
+          {players?.map((player) => (
+            <div
+              key={player.id}
+              className="relative w-full flex justify-between items-start p-1 mb-2 h-16 rounded-sm"
+            >
+              <span className="absolute top-1 z-10 bg-indigo-600 text-2xl font-bold px-2 rounded-sm">
                 {player.player.split("--")[0]}
-              </p>
+              </span>
               <img
                 src={player.hero}
-                className="h-16 w-[460px] object-cover mb-2 shrink-0"
+                className="absolute top-0 left-0 h-16 border border-indigo-600 w-full object-cover mb-2 rounded-sm"
                 alt={player.player}
               />
+              <span className="absolute top-1 right-1 bg-indigo-600 rounded-sm px-1 tabular-nums tracking-tight text-5xl font-bold">
+                {player.score}
+              </span>
+              <div className="w-8 h-8 flex justify-center items-center absolute top-0 -right-10 border border-indigo-500 rounded-sm">
+                {player.finish ? <span>🎉</span> : <span>🧘🏻</span>}
+              </div>
             </div>
-            <p className="text-5xl font-bold">{player.score}</p>
-          </div>
-        ))}
-      </section>
-    </div>
+          ))}
+        </section>
+      </div>
+    </>
   )
 }
