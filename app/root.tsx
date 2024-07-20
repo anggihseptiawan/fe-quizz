@@ -54,7 +54,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="text-white">
+      <body className="bg-gradient-to-r from-[#020534] to-[#14044f] text-white">
         {isOffLine && (
           <div className="bg-red-600 text-white py-2 px-6">
             <div className="flex gap-2">
