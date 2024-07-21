@@ -94,7 +94,7 @@ export default function Index() {
                   <FormItem>
                     <Input
                       placeholder="Your name"
-                      className="w-full sm:w-64 h-12 px-4 text-lg"
+                      className="w-full min-w-40 sm:w-64 h-12 px-4 text-lg"
                       {...field}
                     />
                     <FormMessage />
@@ -112,27 +112,27 @@ export default function Index() {
                       <InputOTP maxLength={6} {...field}>
                         <InputOTPGroup>
                           <InputOTPSlot
-                            className="w-16 h-16 text-xl"
+                            className="w-12 h-12 sm:w-16 sm:h-16 text-xl"
                             index={0}
                           />
                           <InputOTPSlot
-                            className="w-16 h-16 text-xl"
+                            className="w-12 h-12 sm:w-16 sm:h-16 text-xl"
                             index={1}
                           />
                           <InputOTPSlot
-                            className="w-16 h-16 text-xl"
+                            className="w-12 h-12 sm:w-16 sm:h-16 text-xl"
                             index={2}
                           />
                           <InputOTPSlot
-                            className="w-16 h-16 text-xl"
+                            className="w-12 h-12 sm:w-16 sm:h-16 text-xl"
                             index={3}
                           />
                           <InputOTPSlot
-                            className="w-16 h-16 text-xl"
+                            className="w-12 h-12 sm:w-16 sm:h-16 text-xl"
                             index={4}
                           />
                           <InputOTPSlot
-                            className="w-16 h-16 text-xl"
+                            className="w-12 h-12 sm:w-16 sm:h-16 text-xl"
                             index={5}
                           />
                         </InputOTPGroup>
@@ -150,7 +150,7 @@ export default function Index() {
         </form>
       </Form>
 
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-4">
         {heros.map((hero, idx) => (
           <Hero
             key={idx}
