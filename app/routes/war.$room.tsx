@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button"
 import { supabase } from "~/lib/supabase.server"
 import { Questions } from "~/types/quizz"
 import { useSocket } from "~/context"
+import toast, { Toaster } from "react-hot-toast"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { data: dataQuestions, error } = await supabase
@@ -50,7 +51,12 @@ export default function Index() {
           setActiveQuestion((prev) => {
             const current = prev + 1
             if (current === questions.length) {
-              navigate("/join", { replace: true })
+              toast.success(
+                "Selamat, Anda telah menyelesaikan Quiz, lihat Leaderboard untuk tau peringkat Anda!",
+                { duration: 5000 }
+              )
+              setTimeout(() => navigate("/join", { replace: true }), 5000)
+              return prev
             }
             return current
           })
@@ -89,7 +95,12 @@ export default function Index() {
             })
           }
           localStorage.removeItem("name")
-          navigate("/join", { replace: true })
+          toast.success(
+            "Selamat, Anda telah menyelesaikan Quiz, lihat Leaderboard untuk tau peringkat Anda!",
+            { duration: 5000 }
+          )
+          setTimeout(() => navigate("/join", { replace: true }), 5000)
+          return prev
         }
         return current
       })
@@ -117,12 +128,12 @@ export default function Index() {
               key={idx}
               className="flex flex-col justify-between h-96 w-full"
             >
-              <h1 className="text-center text-3xl font-bold">
+              <h1 className="text-center text-3xl font-bold mb-10">
                 {question?.question}
               </h1>
-              <div className="flex flex-wrap justify-between w-full">
+              <div className="flex flex-col sm:flex-row flex-wrap justify-between w-full">
                 {question?.answers.map((answer, idx) => (
-                  <div key={idx} className="w-[49%] mb-4">
+                  <div key={idx} className="w-full sm:w-[49%] mb-4">
                     <Button
                       className={`block w-full h-16 text-lg ${
                         isShowCorrectAnswer
@@ -141,6 +152,7 @@ export default function Index() {
             </div>
           ))}
       </div>
+      <Toaster />
     </div>
   )
 }
