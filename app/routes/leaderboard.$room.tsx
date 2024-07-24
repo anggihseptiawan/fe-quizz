@@ -68,6 +68,19 @@ export default function Index() {
     return () => window.removeEventListener("click", playAudio)
   }, [socket])
 
+  function renderPosition(position: number) {
+    switch (position) {
+      case 0:
+        return <span>🏆</span>
+      case 1:
+        return <span>🥈</span>
+      case 2:
+        return <span>🥉</span>
+      default:
+        return <span>{position + 1}th</span>
+    }
+  }
+
   return (
     <>
       {isAllPlayerFinished && (
@@ -80,23 +93,26 @@ export default function Index() {
         </h1>
         <audio ref={audioRef} src="/aot.mp4"></audio>
         <section className="md:w-1/2 mx-auto pr-8 sm:pr-0">
-          {players?.map((player) => (
+          {players?.map((player, idx) => (
             <div
               key={player.id}
-              className="relative w-full flex justify-between items-start p-1 mb-2 h-16 rounded-sm"
+              className="relative w-full flex justify-between items-start p-1 mb-2 h-18 rounded-sm"
             >
               <span className="absolute top-1 z-10 bg-indigo-600 text-2xl font-bold px-2 rounded-sm">
                 {player.player.split("--")[0]}
               </span>
               <img
                 src={player.hero}
-                className="absolute top-0 left-0 h-16 border border-indigo-600 w-full object-cover mb-2 rounded-sm"
+                className="absolute top-0 left-0 h-18 border border-indigo-600 w-full object-cover mb-2 rounded-sm"
                 alt={player.player}
               />
               <span className="absolute top-1 right-1 bg-indigo-600 rounded-sm px-1 tabular-nums tracking-tight text-5xl font-bold">
                 {player.score}
               </span>
-              <div className="w-8 h-8 flex justify-center items-center absolute top-0 -right-10 border border-indigo-500 rounded-sm">
+              <div className="w-8 h-8 flex justify-center items-center absolute top-0 -right-10 bg-indigo-700 rounded-sm">
+                {renderPosition(idx)}
+              </div>
+              <div className="w-8 h-8 flex justify-center items-center absolute top-10 -right-10 border border-indigo-500 rounded-sm">
                 {player.finish ? <span>🎉</span> : <span>🧘🏻</span>}
               </div>
             </div>

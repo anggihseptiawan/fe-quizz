@@ -76,7 +76,7 @@ export default function Index() {
     if (!socket) return
     const workTime = Date.now() - startTime
     const maxTime = DEFAULT_TIMER * 1000
-    const point = result ? Math.floor((maxTime - workTime) / 100) : 0
+    const point = result ? Math.floor((maxTime - workTime) / 50) : 0
     setStartTime(Date.now())
     socket.emit("set-score", {
       room: atob(room as string),
