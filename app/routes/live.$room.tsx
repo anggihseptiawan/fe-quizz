@@ -32,7 +32,10 @@ export default function Index() {
 
   return (
     <div className="py-10">
-      <div className="flex justify-between mb-3">
+      <h1 className="text-4xl text-center font-bold mb-6">
+        Room: {atob(encryptedRoom)}
+      </h1>
+      <div className="flex justify-between mb-4">
         <p className="font-bold text-xl">
           {players.length
             ? "List of Players"
@@ -46,10 +49,13 @@ export default function Index() {
       </div>
       <div className="flex flex-wrap gap-6 mb-6">
         {players.map((player) => (
-          <figure key={player.id}>
+          <figure
+            key={player.id}
+            className="basis-[120px] sm:basis-[160px] flex-1 sm:flex-grow-0"
+          >
             <img
               src={player.hero}
-              className="h-40 w-40 object-cover rounded-lg mb-2"
+              className="w-full h-40 object-cover rounded-lg mb-2"
               alt={player.hero}
             />
             <figcaption className="text-center font-semibold">

@@ -1,4 +1,3 @@
-import type { MetaFunction } from "@remix-run/node"
 import { Link } from "@remix-run/react"
 import {
   Clapperboard,
@@ -8,13 +7,6 @@ import {
   Map,
   SquareRadical,
 } from "lucide-react"
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Quizz" },
-    { name: "description", content: "Welcome to Quizz!" },
-  ]
-}
 
 export default function Index() {
   return (
@@ -53,7 +45,7 @@ export default function Index() {
       </section>
 
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container space-y-12 px-4 md:px-6">
+        <div className="container space-y-4 px-0">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -65,13 +57,13 @@ export default function Index() {
               </p>
             </div>
           </div>
-          <div className="mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <div className="mx-auto grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-6">
             <div className="flex flex-col items-center justify-center space-y-2 bg-indigo-950 rounded-lg p-6">
               <div className="bg-primary rounded-full w-12 h-12 flex items-center justify-center text-primary-foreground">
                 <FlaskConical />
               </div>
               <h3 className="text-lg font-bold">Science</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-center text-muted-foreground">
                 Test your knowledge on various scientific topics.
               </p>
             </div>
@@ -80,7 +72,7 @@ export default function Index() {
                 <History />
               </div>
               <h3 className="text-lg font-bold">History</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-center text-muted-foreground">
                 Dive into the past and test your historical knowledge.
               </p>
             </div>
@@ -89,7 +81,7 @@ export default function Index() {
                 <Dumbbell />
               </div>
               <h3 className="text-lg font-bold">Sports</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-center text-muted-foreground">
                 Challenge your sports trivia knowledge.
               </p>
             </div>
@@ -98,7 +90,7 @@ export default function Index() {
                 <Map />
               </div>
               <h3 className="text-lg font-bold">Geography</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-center text-muted-foreground">
                 Explore the world and test your geographic knowledge.
               </p>
             </div>
@@ -107,7 +99,7 @@ export default function Index() {
                 <Clapperboard />
               </div>
               <h3 className="text-lg font-bold">Entertainment</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-center text-muted-foreground">
                 Test your knowledge on movies, TV shows, and more.
               </p>
             </div>
@@ -116,7 +108,7 @@ export default function Index() {
                 <SquareRadical />
               </div>
               <h3 className="text-lg font-bold">Math</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-center text-muted-foreground">
                 Challenge your mathematical skills and problem-solving
                 abilities.
               </p>
@@ -126,7 +118,7 @@ export default function Index() {
       </section>
 
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container space-y-12 px-4 md:px-6">
+        <div className="container space-y-12 px-0">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -147,7 +139,7 @@ export default function Index() {
                 className="aspect-[3/2] object-contain py-2 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
-                <div>
+                <div className="mb-3">
                   <h3 className="text-lg font-bold">Science Quiz</h3>
                   <p className="text-sm text-muted-foreground">
                     Test your knowledge on various scientific topics.
@@ -195,7 +187,7 @@ export default function Index() {
                 className="aspect-[3/2] object-contain py-2 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
-                <div>
+                <div className="mb-3">
                   <h3 className="text-lg font-bold">Sports Quiz</h3>
                   <p className="text-sm text-muted-foreground">
                     Challenge your sports trivia knowledge.
@@ -219,7 +211,7 @@ export default function Index() {
                 className="aspect-[3/2] object-contain py-2 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
-                <div>
+                <div className="mb-3">
                   <h3 className="text-lg font-bold">Geography Quiz</h3>
                   <p className="text-sm text-muted-foreground">
                     Explore the world and test your geographic knowledge.
@@ -237,8 +229,8 @@ export default function Index() {
           </div>
         </div>
       </section>
-      <footer className="text-muted-foreground p-6 md:py-12 w-full">
-        <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
+      <footer className="text-muted-foreground px-0 py-6 md:py-12 w-full">
+        <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-sm">
           <div className="grid gap-1">
             <h3 className="font-bold mb-2">Company</h3>
             <Link to="#">About Us</Link>

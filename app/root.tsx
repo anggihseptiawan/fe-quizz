@@ -21,8 +21,8 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Quizz" },
-    { name: "description", content: "Welcome to Quizz!" },
+    { title: "Quizzy" },
+    { name: "description", content: "Welcome to Quizzy!" },
   ]
 }
 

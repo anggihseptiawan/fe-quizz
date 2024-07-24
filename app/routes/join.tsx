@@ -33,10 +33,10 @@ function Hero({
   handleClick: () => void
 }) {
   return (
-    <div className="relative basis-[160px] flex-1">
+    <div className="relative basis-[120px] sm:basis-[160px] flex-1">
       <img
         src={hero}
-        className={`h-40 w-full object-cover rounded-lg mb-2 cursor-pointer ${
+        className={`h-32 sm:h-40 w-full object-cover rounded-lg mb-2 cursor-pointer ${
           isActive
             ? "transition-[border] duration-300 border-[5px] border-indigo-500"
             : ""
@@ -80,8 +80,8 @@ export default function Index() {
     <div className="py-10">
       <h1 className="text-center text-2xl font-bold mb-5">Join a Quizz</h1>
       <p className="text-center mb-3">
-        Enter the Room, pick your hero, give it a name, and you&apos;re ready to
-        go!
+        Enter the Room, pick your fighter, give it a name, and you&apos;re ready
+        to go!
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
