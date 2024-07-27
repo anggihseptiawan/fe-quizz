@@ -29,6 +29,7 @@ export default function Index() {
   const socket = useSocket()
   const encryptedRoom = location.pathname.split("/")[2]
   const audioRef = useRef<HTMLAudioElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     if (!socket) return
@@ -60,7 +61,8 @@ export default function Index() {
     })
 
     function playAudio() {
-      audioRef.current?.play()
+      videoRef.current?.play()
+      // audioRef.current?.play()
     }
 
     window.addEventListener("click", playAudio)
@@ -82,10 +84,15 @@ export default function Index() {
   }
 
   return (
-    <>
+    <div className="relative">
       {isAllPlayerFinished && (
         <Confetti width={windowSize.width} height={windowSize.height} />
       )}
+      <video
+        ref={videoRef}
+        src="/kny-short.mp4"
+        className="absolute z-1 w-full"
+      ></video>
 
       <div className="py-10">
         <h1 className="font-bold text-center text-2xl mb-6">
@@ -119,6 +126,6 @@ export default function Index() {
           ))}
         </section>
       </div>
-    </>
+    </div>
   )
 }

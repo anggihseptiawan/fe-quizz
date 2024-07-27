@@ -145,12 +145,16 @@ export default function Index() {
                 <div>
                   <Button
                     variant="outline"
-                    className="h-12 w-12"
+                    className="group h-12 w-12"
                     size="icon"
                     onClick={() => remove(idx)}
                     type="button"
                   >
-                    <img src="/icons/trash.svg" alt="delete-icon" />
+                    <img
+                      src="/icons/trash.svg"
+                      className="group-hover:invert"
+                      alt="delete-icon"
+                    />
                   </Button>
                 </div>
               </div>

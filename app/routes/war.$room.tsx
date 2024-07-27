@@ -77,6 +77,9 @@ export default function Index() {
     const workTime = Date.now() - startTime
     const maxTime = DEFAULT_TIMER * 1000
     const point = result ? Math.floor((maxTime - workTime) / 50) : 0
+    point
+      ? toast.success(`Yeay, point tambahan: +${point} points`)
+      : toast.error("Yahh, jawaban kamu salah, nice try!")
     setStartTime(Date.now())
     socket.emit("set-score", {
       room: atob(room as string),
@@ -135,11 +138,11 @@ export default function Index() {
                 {question?.answers.map((answer, idx) => (
                   <div key={idx} className="w-full sm:w-[49%] mb-4">
                     <Button
-                      className={`block w-full h-16 text-lg ${
+                      className={`block w-full h-16 text-lg border-2 border-indigo-800 ${
                         isShowCorrectAnswer
                           ? answer.is_correct
-                            ? "hover:bg-indigo-800 bg-indigo-800 border-2 border-indigo-800"
-                            : "hover:bg-indigo-400 bg-indigo-400 border-2 border-indigo-800"
+                            ? "hover:bg-indigo-800 bg-indigo-800"
+                            : "hover:bg-indigo-400 bg-indigo-400"
                           : ""
                       }`}
                       onClick={() => handleClick(answer.is_correct)}
