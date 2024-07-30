@@ -91,7 +91,7 @@ export default function Index() {
       )}
       <video
         ref={videoRef}
-        src={`${url}/videos/kny-short.mp4`}
+        src={`${url}videos/kny-short.mp4`}
         className="absolute z-1 w-full"
       ></video>
 
@@ -110,7 +110,7 @@ export default function Index() {
                 {player.player.split("--")[0]}
               </span>
               <img
-                src={`${url}/images${player.hero}`}
+                src={`${url}images${player.hero}`}
                 className="absolute top-0 left-0 h-18 border border-indigo-600 w-full object-cover mb-2 rounded-sm"
                 alt={player.player}
               />

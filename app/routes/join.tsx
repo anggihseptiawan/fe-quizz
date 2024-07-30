@@ -159,7 +159,7 @@ export default function Index() {
         {heros.map((hero, idx) => (
           <Hero
             key={idx}
-            hero={`${url}/images${hero}`}
+            hero={`${url}images${hero}`}
             handleClick={() => setActiveId(idx)}
             isActive={idx === activeId}
           />
