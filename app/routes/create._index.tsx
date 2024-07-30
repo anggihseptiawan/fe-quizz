@@ -19,6 +19,21 @@ export default function Index() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               <div className="flex flex-col items-center justify-center space-y-2 bg-indigo-950 rounded-lg p-6">
                 <div className="bg-primary rounded-full w-12 h-12 flex items-center justify-center text-primary-foreground">
+                  <PlayIcon className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold">Create from Scratch</h3>
+                <p className="text-sm text-muted-foreground">
+                  Build your own custom quiz from the ground up.
+                </p>
+                <Link
+                  to="/create/quizz"
+                  className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                >
+                  Create Quiz
+                </Link>
+              </div>
+              <div className="flex flex-col items-center justify-center space-y-2 bg-indigo-950 rounded-lg p-6">
+                <div className="bg-primary rounded-full w-12 h-12 flex items-center justify-center text-primary-foreground">
                   <LayoutTemplateIcon className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-bold">Quiz Templates</h3>
@@ -31,21 +46,6 @@ export default function Index() {
                   className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 >
                   Browse Templates
-                </Link>
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-2 bg-indigo-950 rounded-lg p-6">
-                <div className="bg-primary rounded-full w-12 h-12 flex items-center justify-center text-primary-foreground">
-                  <PlayIcon className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold">Create from Scratch</h3>
-                <p className="text-sm text-muted-foreground">
-                  Build your own custom quiz from the ground up.
-                </p>
-                <Link
-                  to="/create/quizz"
-                  className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                >
-                  Create Quiz
                 </Link>
               </div>
               <div className="flex flex-col items-center justify-center space-y-2 bg-indigo-950 rounded-lg p-6">

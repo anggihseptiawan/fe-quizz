@@ -33,7 +33,7 @@ export default function Index() {
             </div>
             <div className="hidden md:block">
               <img
-                src="/hero-image-9.svg"
+                src="/online-meeting.png"
                 width={600}
                 height={400}
                 alt="Hero"
@@ -136,7 +136,7 @@ export default function Index() {
                 width={300}
                 height={200}
                 alt="Quiz Thumbnail"
-                className="aspect-[3/2] object-contain py-2 mx-auto"
+                className="aspect-[3/2] object-contain py-4 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
                 <div className="mb-3">
@@ -160,7 +160,7 @@ export default function Index() {
                 width={300}
                 height={200}
                 alt="Quiz Thumbnail"
-                className="aspect-[3/2] object-contain py-2 mx-auto"
+                className="aspect-[3/2] object-contain py-4 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
                 <div className="mb-3">
@@ -184,7 +184,7 @@ export default function Index() {
                 width={300}
                 height={200}
                 alt="Quiz Thumbnail"
-                className="aspect-[3/2] object-contain py-2 mx-auto"
+                className="aspect-[3/2] object-contain py-4 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
                 <div className="mb-3">
@@ -208,7 +208,7 @@ export default function Index() {
                 width={300}
                 height={200}
                 alt="Quiz Thumbnail"
-                className="aspect-[3/2] object-contain py-2 mx-auto"
+                className="aspect-[3/2] object-contain py-4 mx-auto"
               />
               <div className="p-4 flex flex-col justify-between flex-1">
                 <div className="mb-3">
@@ -264,6 +264,35 @@ export default function Index() {
             <Link to="#">Sales</Link>
             <Link to="#">Press</Link>
             <Link to="#">Partnerships</Link>
+          </div>
+          <div>
+            Illustration by{" "}
+            <a
+              href="https://icons8.com/illustrations/author/zD2oqC8lLBBA"
+              className="text-white"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Icons 8
+            </a>{" "}
+            from{" "}
+            <a
+              href="https://icons8.com/illustrations"
+              className="text-white"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ouch!
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://undraw.co/"
+              className="text-white"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Undraw
+            </a>
           </div>
         </div>
       </footer>

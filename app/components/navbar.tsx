@@ -12,6 +12,9 @@ export const Navbar = () => (
       <Link to="/join" className="font-semibold">
         Join
       </Link>
+      <Link to="/signin" className="font-semibold">
+        Sign In
+      </Link>
     </div>
   </nav>
 )

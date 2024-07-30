@@ -17,6 +17,10 @@ const config = {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      sans: ["Raleway", "sans-serif"],
+      serif: ["Raleway", "serif"],
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",

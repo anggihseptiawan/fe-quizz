@@ -15,13 +15,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
     .select()
     .eq("room_id", room)
 
-  if (errorQuestions) return json(null)
+  const BE_URL = process.env.BACKEND_SERVICE
+  if (errorQuestions) return json({ allPlayers: null, url: BE_URL })
   data.sort((a, z) => z.score - a.score)
-  return json(data as Player[])
+  return json({ allPlayers: data as Player[], url: BE_URL })
 }
 
 export default function Index() {
-  const allPlayers = useLoaderData<typeof loader>()
+  const { allPlayers, url } = useLoaderData<typeof loader>()
   const [players, setPlayers] = useState(allPlayers || [])
   const [isAllPlayerFinished, setIsAllPlayerFinished] = useState(false)
   const [windowSize, setWindowSize] = useState({ width: 1440, height: 800 })
@@ -90,7 +91,7 @@ export default function Index() {
       )}
       <video
         ref={videoRef}
-        src="/kny-short.mp4"
+        src={`${url}/videos/kny-short.mp4`}
         className="absolute z-1 w-full"
       ></video>
 
@@ -109,7 +110,7 @@ export default function Index() {
                 {player.player.split("--")[0]}
               </span>
               <img
-                src={player.hero}
+                src={`${url}/images${player.hero}`}
                 className="absolute top-0 left-0 h-18 border border-indigo-600 w-full object-cover mb-2 rounded-sm"
                 alt={player.player}
               />

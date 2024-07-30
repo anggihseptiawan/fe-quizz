@@ -20,8 +20,13 @@ import { heros } from "~/constants/hero"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useNavigate } from "@remix-run/react"
+import { json, useLoaderData, useNavigate } from "@remix-run/react"
 import { useSocket } from "~/context"
+
+export async function loader() {
+  const BE_URL = process.env.BACKEND_SERVICE!
+  return json({ url: BE_URL })
+}
 
 function Hero({
   hero,
@@ -44,7 +49,6 @@ function Hero({
         alt={hero}
         onClick={handleClick}
       />
-      {/* {isActive && <span className="absolute top-14 left-16 text-3xl">🤞</span>} */}
     </div>
   )
 }
@@ -58,6 +62,7 @@ export default function Index() {
   const [activeId, setActiveId] = useState(0)
   const navigate = useNavigate()
   const socket = useSocket()
+  const { url } = useLoaderData<typeof loader>()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -154,7 +159,7 @@ export default function Index() {
         {heros.map((hero, idx) => (
           <Hero
             key={idx}
-            hero={hero}
+            hero={`${url}/images${hero}`}
             handleClick={() => setActiveId(idx)}
             isActive={idx === activeId}
           />
