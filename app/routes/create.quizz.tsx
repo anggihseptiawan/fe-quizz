@@ -1,7 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate } from "@remix-run/react"
 import axios from "axios"
+import { useState } from "react"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { z } from "zod"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
@@ -27,6 +29,7 @@ const inputSchema = z.object({
 const formSchema = z.object({ inputs: z.array(inputSchema) })
 
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const {
     control,
@@ -46,6 +49,7 @@ export default function Index() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
     const pin = String(Math.random()).split(".")[1].slice(0, 6)
     const { inputs } = values
     const questions: Question[] = []
@@ -72,19 +76,16 @@ export default function Index() {
     }
 
     try {
-      const response = await axios.post("/launch", {
-        pin,
-        questions,
-        answers,
-      })
-      console.log("response", response)
+      await axios.post("/launch", { pin, questions, answers })
+      navigate(`/live/${btoa(pin)}`, { replace: true })
     } catch (error) {
-      console.log("error")
+      toast.error(
+        (error as { message: string })?.message || "Failed to launch the quiz!"
+      )
+    } finally {
+      setIsLoading(false)
     }
-    navigate(`/live/${btoa(pin)}`, { replace: true })
   }
-
-  console.log("error", errors)
 
   return (
     <div className="py-10">
@@ -236,7 +237,9 @@ export default function Index() {
             >
               Add more question
             </Button>
-            <Button type="submit">Launch 🚀</Button>
+            <Button type="submit">
+              {isLoading ? "Launching..." : "Launch 🚀"}
+            </Button>
           </div>
         </div>
       </form>
