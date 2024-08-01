@@ -88,11 +88,12 @@ export default function Index() {
       {isAllPlayerFinished && (
         <Confetti width={windowSize.width} height={windowSize.height} />
       )}
-      <video
-        ref={videoRef}
-        src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
-        className="absolute z-1 w-full"
-      ></video>
+      <video ref={videoRef} preload="metadata" className="absolute z-1 w-full">
+        <source
+          src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
+          type="video/mp4"
+        />
+      </video>
 
       <div className="py-10">
         <h1 className="font-bold text-center text-2xl mb-6">
