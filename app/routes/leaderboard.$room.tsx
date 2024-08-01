@@ -62,10 +62,7 @@ export default function Index() {
     })
 
     function playAudio() {
-      if (!videoRef.current) return
-      videoRef.current.src = `https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`
-      videoRef.current.play()
-      // audioRef.current?.play()
+      videoRef.current?.play()
     }
 
     window.addEventListener("click", playAudio)
@@ -93,7 +90,7 @@ export default function Index() {
       )}
       <video
         ref={videoRef}
-        // src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
+        src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
         className="absolute z-1 w-full"
       ></video>
 
