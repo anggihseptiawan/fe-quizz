@@ -61,13 +61,26 @@ export default function Index() {
       setPlayers(data)
     })
 
+    const video = videoRef.current
+    function handleLoadedMetadata() {
+      if (!video) return
+      if (video.duration !== Infinity) {
+        // Seek to 1 second to force a range request
+        video.currentTime = 1
+      }
+    }
+
+    video?.addEventListener("loadedmetadata", handleLoadedMetadata)
     function playAudio() {
-      videoRef.current?.play()
+      video?.play()
     }
 
     window.addEventListener("click", playAudio)
 
-    return () => window.removeEventListener("click", playAudio)
+    return () => {
+      window.removeEventListener("click", playAudio)
+      video?.removeEventListener("loadedmetadata", handleLoadedMetadata)
+    }
   }, [socket])
 
   function renderPosition(position: number) {
