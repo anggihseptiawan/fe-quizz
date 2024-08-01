@@ -91,7 +91,7 @@ export default function Index() {
       )}
       <video
         ref={videoRef}
-        src={`${url}videos/kny-short.mp4`}
+        src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
         className="absolute z-1 w-full"
       ></video>
 
