@@ -1,9 +1,15 @@
-import { useLocation, useNavigate } from "@remix-run/react"
+import { json, useLoaderData, useLocation, useNavigate } from "@remix-run/react"
 import { useEffect, useState } from "react"
 import { useSocket } from "~/context"
 import { Player } from "~/types/quizz"
 
+export async function loader() {
+  const BE_URL = process.env.BACKEND_SERVICE!
+  return json({ url: BE_URL })
+}
+
 export default function Index() {
+  const { url } = useLoaderData<typeof loader>()
   const socket = useSocket()
   const location = useLocation()
   const navigate = useNavigate()
@@ -31,10 +37,10 @@ export default function Index() {
 
       <div className="flex gap-4 flex-wrap">
         {players.map((player, idx) => (
-          <figure key={idx}>
+          <figure key={idx} className="basis-[120px] sm:basis-[160px] flex-1">
             <img
-              src={player.hero}
-              className="w-40 h-40 rounded-lg object-cover mb-2"
+              src={`${url}images${player.hero}`}
+              className="h-32 sm:h-40 w-full rounded-lg object-cover mb-2"
               alt={player.hero}
             />
             <figcaption className="text-center font-semibold">
