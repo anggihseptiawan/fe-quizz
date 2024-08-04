@@ -59,7 +59,7 @@ const formSchema = z.object({
 })
 
 export default function Index() {
-  const [activeId, setActiveId] = useState(0)
+  const [activeId, setActiveId] = useState(() => Math.floor(Math.random() * 17))
   const navigate = useNavigate()
   const socket = useSocket()
   const { url } = useLoaderData<typeof loader>()
