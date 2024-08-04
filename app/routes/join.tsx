@@ -47,7 +47,7 @@ function Hero({
             : ""
         }`}
         alt={hero}
-        onClick={() => handleClick()}
+        onClick={handleClick}
       />
     </div>
   )

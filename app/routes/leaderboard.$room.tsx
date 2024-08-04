@@ -57,7 +57,7 @@ export default function Index() {
       const isAllFinished = data.every((player) => !!player.finish)
       setWindowSize({ width: window.innerWidth, height: window.innerHeight })
       setIsAllPlayerFinished(isAllFinished)
-      setTimeout(() => setIsAllPlayerFinished(false), 10000)
+      setTimeout(() => setIsAllPlayerFinished(false), 15000)
       setPlayers(data)
     })
 
