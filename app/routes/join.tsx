@@ -37,14 +37,13 @@ function Hero({
   isActive: boolean
   handleClick: () => void
 }) {
-  const activeClass = isActive
-    ? "transition-[border] duration-300 border-[7px] border-indigo-500"
-    : "border-none"
   return (
     <div className="relative basis-[120px] sm:basis-[160px] flex-1">
       <img
         src={hero}
-        className={`h-32 sm:h-40 w-full object-cover rounded-lg mb-2 cursor-pointer ${activeClass}`}
+        className={`h-32 sm:h-40 w-full object-cover rounded-lg cursor-pointer border-[7px] ${
+          isActive ? "border-indigo-600" : "border-gray-100 opacity-60"
+        }`}
         alt={hero}
         onClick={handleClick}
       />
@@ -158,7 +157,7 @@ export default function Index() {
         </form>
       </Form>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-3">
         {heros.map((hero, idx) => (
           <Hero
             key={idx}
