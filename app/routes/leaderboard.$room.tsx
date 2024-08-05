@@ -34,7 +34,7 @@ export default function Index() {
 
   useEffect(() => {
     if (!socket) return
-
+    const video = videoRef.current
     const room = atob(encryptedRoom)
     socket.emit("leaderboard", room)
 
@@ -61,13 +61,13 @@ export default function Index() {
       setPlayers(data)
     })
 
-    function playAudio() {
-      videoRef.current?.play()
+    function playVideo() {
+      video?.play()
     }
 
-    window.addEventListener("click", playAudio)
+    video?.addEventListener("click", playVideo)
 
-    return () => window.removeEventListener("click", playAudio)
+    return () => video?.removeEventListener("click", playVideo)
   }, [socket])
 
   function renderPosition(position: number) {
