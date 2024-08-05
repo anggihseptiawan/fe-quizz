@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 import {
@@ -37,15 +37,14 @@ function Hero({
   isActive: boolean
   handleClick: () => void
 }) {
+  const activeClass = isActive
+    ? "transition-[border] duration-300 border-[7px] border-indigo-500"
+    : "border-none"
   return (
     <div className="relative basis-[120px] sm:basis-[160px] flex-1">
       <img
         src={hero}
-        className={`h-32 sm:h-40 w-full object-cover rounded-lg mb-2 cursor-pointer ${
-          isActive
-            ? "transition-[border] duration-300 border-[5px] border-indigo-500"
-            : ""
-        }`}
+        className={`h-32 sm:h-40 w-full object-cover rounded-lg mb-2 cursor-pointer ${activeClass}`}
         alt={hero}
         onClick={handleClick}
       />
@@ -59,7 +58,7 @@ const formSchema = z.object({
 })
 
 export default function Index() {
-  const [activeId, setActiveId] = useState(() => Math.floor(Math.random() * 17))
+  const [activeId, setActiveId] = useState(0)
   const navigate = useNavigate()
   const socket = useSocket()
   const { url } = useLoaderData<typeof loader>()
@@ -80,6 +79,10 @@ export default function Index() {
     socket.emit("join", payload)
     navigate(`/waiting/${btoa(data.room)}`, { replace: true })
   }
+
+  useEffect(() => {
+    setActiveId(Math.floor(Math.random() * 17))
+  }, [])
 
   return (
     <div className="py-10">
