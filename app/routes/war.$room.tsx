@@ -50,6 +50,7 @@ export default function Index() {
         if (current === 0) {
           setActiveQuestion((prev) => {
             const current = prev + 1
+            setStartTime(Date.now())
             if (current === questions.length) {
               toast.success(
                 "Selamat, Anda telah menyelesaikan Quiz, lihat Leaderboard untuk tau peringkat Anda!",
@@ -76,10 +77,11 @@ export default function Index() {
     if (!socket) return
     const workTime = Date.now() - startTime
     const maxTime = DEFAULT_TIMER * 1000
-    const point = result ? Math.floor((maxTime - workTime) / 50) : 0
+    const score = Math.floor((maxTime - workTime) / 50)
+    const point = result ? score : score * -1
     point
       ? toast.success(`Yeay, point tambahan: +${point} points`)
-      : toast.error("Yahh, jawaban kamu salah, nice try!")
+      : toast.error(`Yahh, jawaban kamu salah, minus point: -${point}`)
     setStartTime(Date.now())
     socket.emit("set-score", {
       room: atob(room as string),
