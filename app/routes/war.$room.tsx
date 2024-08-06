@@ -81,7 +81,7 @@ export default function Index() {
     const point = result ? score : score * -1
     point
       ? toast.success(`Yeay, point tambahan: +${point} points`)
-      : toast.error(`Yahh, jawaban kamu salah, minus point: -${point}`)
+      : toast.error(`Yahh, jawaban kamu salah, minus point: ${point}`)
     setStartTime(Date.now())
     socket.emit("set-score", {
       room: atob(room as string),
