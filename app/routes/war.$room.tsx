@@ -79,7 +79,7 @@ export default function Index() {
     const maxTime = DEFAULT_TIMER * 1000
     const score = Math.floor((maxTime - workTime) / 50)
     const point = result ? score : score * -1
-    point
+    point > 0
       ? toast.success(`Yeay, point tambahan: +${point} points`)
       : toast.error(`Yahh, jawaban kamu salah, minus point: ${point}`)
     setStartTime(Date.now())
