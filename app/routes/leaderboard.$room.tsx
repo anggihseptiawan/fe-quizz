@@ -65,9 +65,9 @@ export default function Index() {
       video?.play()
     }
 
-    video?.addEventListener("click", playVideo)
+    window?.addEventListener("click", playVideo)
 
-    return () => video?.removeEventListener("click", playVideo)
+    return () => window?.removeEventListener("click", playVideo)
   }, [socket])
 
   function renderPosition(position: number) {
@@ -88,7 +88,11 @@ export default function Index() {
       {isAllPlayerFinished && (
         <Confetti width={windowSize.width} height={windowSize.height} />
       )}
-      <video ref={videoRef} preload="metadata" className="absolute z-1 w-full">
+      <video
+        ref={videoRef}
+        preload="metadata"
+        className="fixed inset-0 -z-10 w-full opacity-55"
+      >
         <source
           src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
           type="video/mp4"
