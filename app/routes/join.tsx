@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 import {
@@ -25,7 +25,8 @@ import { useSocket } from "~/context"
 
 export async function loader() {
   const BE_URL = process.env.BACKEND_SERVICE!
-  return json({ url: BE_URL })
+  const randomId = Math.floor(Math.random() * 17)
+  return json({ url: BE_URL, randomId })
 }
 
 function Hero({
@@ -57,10 +58,10 @@ const formSchema = z.object({
 })
 
 export default function Index() {
-  const [activeId, setActiveId] = useState(0)
+  const { url, randomId } = useLoaderData<typeof loader>()
+  const [activeId, setActiveId] = useState(randomId)
   const navigate = useNavigate()
   const socket = useSocket()
-  const { url } = useLoaderData<typeof loader>()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -78,10 +79,6 @@ export default function Index() {
     socket.emit("join", payload)
     navigate(`/waiting/${btoa(data.room)}`, { replace: true })
   }
-
-  useEffect(() => {
-    setActiveId(Math.floor(Math.random() * 17))
-  }, [])
 
   return (
     <div className="py-10">
