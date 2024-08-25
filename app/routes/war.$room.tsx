@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/button"
 import { supabase } from "~/lib/supabase.server"
 import { Questions } from "~/types/quizz"
 import { useSocket } from "~/context"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { data: dataQuestions, error } = await supabase
@@ -157,7 +157,6 @@ export default function Index() {
             </div>
           ))}
       </div>
-      <Toaster />
     </div>
   )
 }

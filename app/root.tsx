@@ -14,6 +14,7 @@ import { SocketProvider } from "./context"
 import { useEffect, useState } from "react"
 import { Socket, io } from "socket.io-client"
 import { CloudOff } from "lucide-react"
+import { Toaster } from "react-hot-toast"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -80,6 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Navbar />
           {children}
         </div>
+        <Toaster />
         <ScrollRestoration />
         <Scripts />
       </body>
