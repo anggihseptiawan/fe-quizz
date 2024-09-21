@@ -6,6 +6,7 @@ import { useSocket } from "~/context"
 import { supabase } from "~/lib/supabase.server"
 import Confetti from "react-confetti"
 import type { Player } from "~/types/quizz"
+import { VideoPlayer } from "~/components/video-player"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const room = atob(params.room || "")
@@ -88,16 +89,8 @@ export default function Index() {
       {isAllPlayerFinished && (
         <Confetti width={windowSize.width} height={windowSize.height} />
       )}
-      <video
-        ref={videoRef}
-        preload="metadata"
-        className="fixed inset-0 -z-10 w-full opacity-55"
-      >
-        <source
-          src={`https://quizzy.global.ssl.fastly.net/videos/kny-short.mp4`}
-          type="video/mp4"
-        />
-      </video>
+
+      <VideoPlayer url={url || ""} />
 
       <div className="py-10">
         <h1 className="font-bold text-center text-2xl mb-6">

@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import { json, useLoaderData, useLocation, useNavigate } from "@remix-run/react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "~/components/ui/button"
 import { useSocket } from "~/context"
 import { Player } from "~/types/quizz"
@@ -16,6 +17,7 @@ export default function Index() {
   const encryptedRoom = location.pathname.split("/")[2]
   const socket = useSocket()
   const navigate = useNavigate()
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
     if (!socket) return
@@ -31,6 +33,7 @@ export default function Index() {
   function startTheQuizz() {
     if (!socket) return
 
+    audioRef.current?.play()
     const room = atob(encryptedRoom)
     socket.emit("start", room)
     navigate(`/leaderboard/${encryptedRoom}`, { replace: true })
@@ -38,6 +41,7 @@ export default function Index() {
 
   return (
     <div className="py-10">
+      <audio ref={audioRef} muted />
       <h1 className="text-4xl text-center font-bold mb-6">
         Room: {atob(encryptedRoom)}
       </h1>
