@@ -13,6 +13,7 @@ export async function loader() {
 export default function Index() {
   const { url } = useLoaderData<typeof loader>()
   const [players, setPlayers] = useState<Player[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
   const encryptedRoom = location.pathname.split("/")[2]
   const socket = useSocket()
@@ -33,6 +34,7 @@ export default function Index() {
   function startTheQuizz() {
     if (!socket) return
 
+    setIsLoading(true)
     audioRef.current?.play()
     const room = atob(encryptedRoom)
     socket.emit("start", room)
@@ -53,7 +55,7 @@ export default function Index() {
         </p>
         {!!players.length && (
           <Button className="font-bold" onClick={startTheQuizz}>
-            Start 🔥
+            {isLoading ? "Relax.." : "Start"}
           </Button>
         )}
       </div>
